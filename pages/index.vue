@@ -1,3 +1,9 @@
 <template>
-  <h1>Hello register</h1>
+  <Form />
 </template>
+
+<script>
+definePageMeta({
+  layout: 'register-layout'
+})
+</script>
