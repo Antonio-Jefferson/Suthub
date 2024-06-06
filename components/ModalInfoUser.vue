@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits, shallowReactive } from 'vue';
+import { defineProps, defineEmits} from 'vue';
 
 const props = defineProps<{
   show: boolean,
