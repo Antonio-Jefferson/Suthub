@@ -12,6 +12,7 @@ export function isStepValid(step: Ref<number>, state: any, errors: any) {
         CPF: true,
         petSpecies: true,
         petBreed: true,
+        otherPetBreed: true,
       }).parse(state);
     } else if (step.value === 2) {
       RegisterSchema.pick({
@@ -20,6 +21,7 @@ export function isStepValid(step: Ref<number>, state: any, errors: any) {
         city: true,
         neighborhood: true,
         street: true,
+        monthlyIncome: true
       }).parse(state);
     }
     return true;
