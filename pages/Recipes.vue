@@ -16,6 +16,7 @@
   </UContainer>
     <div class="flex justify-center mb-32 md:mt-4">
       <UPagination
+        size="xl"
         :active-button="{ variant: 'outline' }"
         :inactive-button="{ color: 'gray' }"
         v-model="currentPage"
@@ -35,8 +36,6 @@ const tags = ref<string[]>([]);
 const recipes = ref<Recipe[]>([]);
 const filteredRecipes = ref<Recipe[]>([]);
 const currentPage = ref<number>(1);
-  const selectedRecipe = ref<Recipe | null>(null);
-const isModalOpen = ref(false);
 
 async function fetchDataTags() {
   try {

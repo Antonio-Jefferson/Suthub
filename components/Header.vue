@@ -1,17 +1,19 @@
-<template #header>
-  <UCard>
-    <div class="flex justify-between items-center">
+<template>
+  <UCard class="bg-[#46A1F6] rounded-none">
+    <template #header>
+      <div class="flex justify-between items-center">
         <div class="w-28  sm:w-44 ">
           <img  src="/assets/images/logo-suthub-white.png" alt="logo">
         </div>
       <div>
-        <UHorizontalNavigation :links="links">
+        <UHorizontalNavigation  :links="links" :ui="{active: 'text-gray-900 dark:text-white after:bg-primary-500 dark:after:bg-primary-400 after:rounded-full'}">
           <template #default="{ link }">
-            <span class="group-hover:text-primary relative">{{ link.label }}</span>
+            <span class="text-[#ffffff] font-semibold text-base group-hover:text-black relative">{{ link.label }}</span>
           </template>
         </UHorizontalNavigation>
       </div>
     </div>
+    </template>
   </UCard>
 </template>
 
@@ -22,7 +24,7 @@ const route = useRoute()
 
 const links = [{
   label: 'Receitas',
-  to: `${route.path.startsWith('/dev') ? '/dev' : ''}/Recipes`
+  to: `${route.path.startsWith('/dev') ? '/dev' : ''}/recipes`
 }, {
   label: 'Usuários',
   to: '/users'
