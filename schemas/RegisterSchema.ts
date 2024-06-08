@@ -9,7 +9,7 @@ export const RegisterSchema = z.object({
   .refine((value) => value.trim().split(' ').length >= 2, { message: 'O nome completo deve ter pelo menos duas palavras' }),
   dateOfBirth: z.string().refine(validateAge, { message: 'A idade deve estar entre 18 e 65 anos' }),
   CPF: z.string().refine(value => isValidCPF(value), { message: 'CPF inválido' }),
-  petSpecies: z.enum(['cão', 'gato']),
+  petSpecies: z.string().min(3, {message: "Campo Obrigatório"}),
   petBreed: z.string().min(1, { message: 'Raça do pet é obrigatória' }),
   CEP: z.string().regex(/^\d{5}\d{3}$/, { message: 'CEP inválido' }),
   state: z.string().length(2, { message: 'O estado deve ter 2 letras' }),

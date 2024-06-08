@@ -3,7 +3,7 @@
     <UHeader>
       <UCard>
         <div class="w-full md:w-80">
-          <USelectMenu v-model="selected" :options="tags" multiple placeholder="Categorias" @change="filterRecipes" />
+          <USelectMenu size="xl" v-model="selected" :options="tags" multiple placeholder="Categorias" @change="filterRecipes" />
         </div>
       </UCard>
     </UHeader>

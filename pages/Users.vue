@@ -2,7 +2,7 @@
   <div class="sm:px-3 md:px-6 lg:px-8 xl:px-10">
     <UContainer>
       <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
-        <UInput v-model="q" placeholder="Buscar usuário..." />
+        <UInput size="xl" v-model="q" placeholder="Buscar usuário..." />
       </div>
 
       <UTable class="mb-24" :rows="filteredRows" :columns="columns">
@@ -26,7 +26,6 @@ import { formatDate } from '../utils/formatDate';
 import type { UserDisplayInfo } from '~/@types/userType';
 
 const columns = [
-  { key: 'id', label: 'ID' },
   { key: 'photo', label: 'Imagem' },
   { key: 'name', label: 'Nome completo' },
   { key: 'dateOfBirth', label: 'Data de nascimento' },
@@ -42,7 +41,6 @@ async function fetchDataUsers() {
     if (response.ok) {
       const responseData = await response.json();
       const formattedUsers = responseData.users.map((user: any) => ({
-        id: user.id,
         photo: user.image,
         name: `${user.firstName} ${user.lastName}`,
         dateOfBirth: formatDate(user.birthDate),

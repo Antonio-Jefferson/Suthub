@@ -2,9 +2,11 @@
   <UCard class="bg-[#46A1F6] rounded-none">
     <template #header>
       <div class="flex justify-between items-center">
-        <div class="w-28  sm:w-44 ">
-          <img  src="/assets/images/logo-suthub-white.png" alt="logo">
-        </div>
+        <NuxtLink to="/">
+          <div class="w-28 cursor-pointer sm:w-44 " to="/" >
+            <img  src="/assets/images/logo-suthub-white.png" alt="logo">
+          </div>
+        </NuxtLink>
       <div>
         <UHorizontalNavigation  :links="links" :ui="{active: 'text-gray-900 dark:text-white after:bg-primary-500 dark:after:bg-primary-400 after:rounded-full'}">
           <template #default="{ link }">

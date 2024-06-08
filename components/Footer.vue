@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-30 bottom-0 left-0 right-0 flex flex-col sm:flex-row justify-between items-center bg-footer w-full h-auto sm:h-20 p-4"
+    class="z-30 bottom-0 left-0 right-0 flex flex-col sm:flex-row justify-between items-center bg-footer w-full h-auto sm:h-20 p-4 sm:fixed"
   >
     <div class="w-32 mb-4 sm:mb-0">
       <img src="/assets/images/logo-suthub-white.png" alt="Logo">
