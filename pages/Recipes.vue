@@ -8,13 +8,16 @@
       </UCard>
     </UHeader>
     <UContainer>
-    <div class="flex flex-wrap gap-4 mt-12 mb-4 md:mt-28">
-      <div v-for="recipe in paginatedRecipes" :key="recipe.id" class="w-full md:w-[600px]">
-        <RecipeCard :recipe="recipe" />
+      <div class="flex flex-wrap gap-4 mt-12 mb-4 md:mt-28">
+        <div v-if="paginatedRecipes.length === 0" class="w-full text-center">
+          <p class="text-xl text-gray-600 dark:text-gray-400">Nenhuma receita encontrada.</p>
+        </div>
+        <div v-else v-for="recipe in paginatedRecipes" :key="recipe.id" class="w-full md:w-[600px]">
+          <RecipeCard :recipe="recipe" />
+        </div>
       </div>
-    </div>
-  </UContainer>
-    <div class="flex justify-center mb-32 md:mt-4">
+    </UContainer>
+    <div class="flex justify-center mb-32 md:mt-4" v-if="filteredRecipes.length > 0">
       <UPagination
         size="xl"
         :active-button="{ variant: 'outline' }"
@@ -89,4 +92,3 @@ onMounted(() => {
 
 watch(selected, filterRecipes);
 </script>
-

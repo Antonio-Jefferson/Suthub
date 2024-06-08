@@ -1,7 +1,7 @@
 <template>
   <UCard class="bg-[#46A1F6] rounded-none">
     <template #header>
-      <div class="flex justify-between items-center">
+      <div class="sm:flex justify-between items-center">
         <NuxtLink to="/">
           <div class="w-28 cursor-pointer sm:w-44 " to="/" >
             <img  src="/assets/images/logo-suthub-white.png" alt="logo">

@@ -2,7 +2,7 @@
   <div>
     <UContainer class="w-full flex justify-center h-auto p-0  md:mt-24 ">
       <UCard class="shadow-neutral-950 w-full md:mb-12 md:w-3/4 bg-[#E5E5E5] h-screen md:h-auto">
-        <h1 class="text-center text-[#655E5E] font-bold text-xl md:text-3xl">
+        <h1 class="text-center text-[#4d4b4b] font-bold text-xl md:text-3xl">
           Formulário de Cadastro
         </h1>
         <div class="m-6 flex items-center flex-wrap justify-center">
@@ -21,7 +21,7 @@
         </div>
         <UForm :schema="RegisterSchema" :state="state" class="space-y-4" @submit.prevent="onSubmit">
           <div v-if="step === 1">
-            <UFormGroup class="mb-6 w-3/4" label="Nome completo" required>
+            <UFormGroup class="mb-6 md:w-3/4" label="Nome completo" required>
               <UInput size="xl" type="text" v-model="state.fullName" />
               <div v-if="errors.fullName" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.fullName }}</div>
             </UFormGroup>
@@ -31,7 +31,7 @@
                 <div v-if="errors.dateOfBirth" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.dateOfBirth }}</div>
               </UFormGroup>
               <UFormGroup label="CPF" required class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="cpf" v-model="state.CPF" v-mask="'###.###.###-##'" />
+                <UInput size="xl" type="cpf" v-model="state.CPF" />
                 <div v-if="errors.CPF" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.CPF }}</div>
               </UFormGroup>
             </div>
@@ -50,6 +50,7 @@
                   size="xl"
                   v-model="state.petBreed"
                   :options="breeds"
+                  required
                 />
                 <div v-if="state.petBreed === 'Outro'" class="mt-4">
                   <UFormGroup label="Outro" class="w-full">
