@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { isValidCPF, } from '~/utils/isValidCPF';
+import { parseCurrency } from '~/utils/parseCurrency';
 import { validateAge } from '~/utils/validateAge';
 import { validateOtherPetBreed } from '~/utils/validateOtherPetBreed';
 
@@ -16,6 +17,7 @@ export const RegisterSchema = z.object({
   city: z.string().min(1, { message: 'Cidade é obrigatória' }),
   neighborhood: z.string().min(1, { message: 'Bairro é obrigatório' }),
   street: z.string().min(1, { message: 'Rua é obrigatória' }),
-  monthlyIncome: z.string().refine(value => parseFloat(value.replace('R$', '').replace(',', '.')) >= 1000, { message: 'Renda mensal mínima de R$ 1000,00' }),
+  monthlyIncome: z.string().refine(value => parseCurrency(value) >= 1000, {message: 'Renda mensal mínima de R$ 1000,00'}),
   otherPetBreed: z.string().superRefine((value, petBreed) => validateOtherPetBreed(value, petBreed))
 });
+
