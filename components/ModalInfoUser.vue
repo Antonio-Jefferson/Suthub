@@ -4,7 +4,7 @@
       <h2 class="text-xl text-center text-black font-bold mb-4">Dados Cadastrados</h2>
       <ul>
         <li class="text-slate-900"><strong>Nome completo:</strong> {{ data.fullName }}</li>
-        <li class="text-slate-900"><strong>Data de nascimento:</strong> {{ data.dateOfBirth }}</li>
+        <li class="text-slate-900"><strong>Data de nascimento:</strong> {{ formatDate(data.dateOfBirth) }}</li>
         <li class="text-slate-900"><strong>CPF:</strong> {{ data.CPF }}</li>
         <li class="text-slate-900"><strong>Espécie do pet:</strong> {{ data.petSpecies }}</li>
         <li class="text-slate-900"><strong>Raça do pet:</strong> {{ data.petBreed }}</li>
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
 import { defineProps, defineEmits} from 'vue';
+import { formatDate } from '../utils/formatDate';
 
 const props = defineProps<{
   show: boolean,

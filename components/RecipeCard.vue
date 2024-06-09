@@ -7,9 +7,9 @@
       <div class="w-full md:w-2/3">
         <h2 class="text-xl font-extrabold text-slate-700">{{ recipe.name }}</h2>
         <div>
-              <li class="text-sm md:text-base"><strong>Tempo de preparação:</strong> {{ props.recipe.prepTimeMinutes }} minutos</li>
-              <li class="text-sm md:text-base"><strong>Tempo de cozimento:</strong> {{ props.recipe.cookTimeMinutes }} minutos</li>
-              <li class="text-sm md:text-base"><strong>Dificuldade:</strong> {{ props.recipe.difficulty }}</li>
+          <li class="text-sm md:text-base"><strong>Tempo de preparação:</strong> {{ props.recipe.prepTimeMinutes }} minutos</li>
+          <li class="text-sm md:text-base"><strong>Tempo de cozimento:</strong> {{ props.recipe.cookTimeMinutes }} minutos</li>
+          <li class="text-sm md:text-base"><strong>Dificuldade:</strong> {{ props.recipe.difficulty }}</li>
         </div>
         <div class="flex flex-wrap gap-2 mt-2">
           <UBadge v-for="tag in recipe.tags" :key="tag" size="xs" color="orange" variant="solid">{{ tag }}</UBadge>
@@ -59,8 +59,7 @@
           </ol>
         </div>
       </template>
-</UCard>
-
+    </UCard>
   </UModal>
 </template>
 
@@ -68,10 +67,11 @@
 import { defineProps, ref } from 'vue';
 import type { Recipe } from '../@types/recipesTypes';
 
+const isOpen = ref(false);
+
 const props = defineProps<{
   recipe: Recipe;
 }>();
-const isOpen = ref(false);
 
 const openModal = () => {
   isOpen.value = true;
