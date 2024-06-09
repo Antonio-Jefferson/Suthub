@@ -2,10 +2,15 @@
   <div class="sm:px-3 md:px-6 lg:px-8 xl:px-10">
     <UContainer>
       <div class="flex px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
-        <UInput size="xl" v-model="q" placeholder="Buscar usuário..." />
-      </div>
+      <UInput size="xl" v-model="q" placeholder="Buscar usuário..." />
+    </div>
 
-      <UTable class="mb-24" :rows="filteredRows" :columns="columns">
+      <UTable
+        :empty-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Loading...' }"
+        class="w-full mb-24"
+        :rows="filteredRows"
+        :columns="columns"
+        >
         <template #photo-data="{ row }">
           <img :src="row.photo" alt="Imagem do usuário" class="rounded-full h-10 w-10" />
         </template>
@@ -21,10 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { formatDate } from '../utils/formatDate';
-import type { UserDisplayInfo } from '~/@types/userType';
+import { computed, onMounted, ref } from 'vue';
+import { getUsers, fetchUsers } from '../server/api/users/users';
 
+const q = ref('');
 const columns = [
   { key: 'photo', label: 'Imagem' },
   { key: 'name', label: 'Nome completo' },
@@ -33,48 +38,19 @@ const columns = [
   { key: 'location', label: 'Localização' }
 ];
 
-const users = ref<UserDisplayInfo[]>([]);
+const users = getUsers();
 
 async function fetchDataUsers() {
-  try {
-    const response = await fetch('api/users/users');
-    if (response.ok) {
-      const responseData = await response.json();
-      const formattedUsers = responseData.users.map((user: any) => ({
-        photo: user.image,
-        name: `${user.firstName} ${user.lastName}`,
-        dateOfBirth: formatDate(user.birthDate),
-        gender: user.gender,
-        location: user.address.coordinates
-      }));
-
-      formattedUsers.sort((a: any, b: any) => {
-        const nameA = a.name.toLowerCase();
-        const nameB = b.name.toLowerCase();
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        return 0;
-      });
-
-      users.value = formattedUsers;
-    }
-  } catch (error) {
-    console.error('Failed to fetch users:', error);
-  }
+  await fetchUsers();
 }
-
-const q = ref('');
 
 const filteredRows = computed(() => {
   if (!q.value) {
     return users.value;
   }
 
-  return users.value.filter((user: UserDisplayInfo) => {
-    return Object.values(user).some((value) => {
-      return String(value).toLowerCase().includes(q.value.toLowerCase())
-    })
-  });
+  const query = q.value.toLowerCase();
+  return users.value.filter(user => user.name.toLowerCase().includes(query));
 });
 
 function handleLocationClick(lat: number, lng: number) {
