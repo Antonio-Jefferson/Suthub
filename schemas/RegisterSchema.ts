@@ -11,7 +11,7 @@ export const RegisterSchema = z.object({
   CPF: z.string().refine(value => isValidCPF(value), { message: 'CPF inválido' }),
   petSpecies: z.string().min(3, {message: "Campo Obrigatório"}),
   petBreed: z.string().min(1, { message: 'Raça do pet é obrigatória' }),
-  CEP: z.string().regex(/^\d{5}\d{3}$/, { message: 'CEP inválido' }),
+  CEP: z.string().regex(/^\d{5}-\d{3}$/, { message: 'CEP inválido' }),
   state: z.string().length(2, { message: 'O estado deve ter 2 letras' }),
   city: z.string().min(1, { message: 'Cidade é obrigatória' }),
   neighborhood: z.string().min(1, { message: 'Bairro é obrigatório' }),

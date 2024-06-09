@@ -31,7 +31,7 @@
                 <div v-if="errors.dateOfBirth" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.dateOfBirth }}</div>
               </UFormGroup>
               <UFormGroup label="CPF" required class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="cpf" v-model="state.CPF" />
+                <UInput size="xl" type="cpf" v-model="state.CPF" v-maska data-maska="###.###.###-##" />
                 <div v-if="errors.CPF" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.CPF }}</div>
               </UFormGroup>
             </div>
@@ -65,7 +65,7 @@
           <div v-if="step === 2">
             <div class="flex flex-col md:flex-row md:gap-3">
               <UFormGroup label="CEP" class="w-full mb-6 md:w-1/2">
-                <UInput type="text" v-model="state.CEP" @change="handleCEPChange" />
+                <UInput type="text" v-model="state.CEP" @change="handleCEPChange"  />
                 <div v-if="errors.CEP" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.CEP }}</div>
               </UFormGroup>
               <UFormGroup label="Estado" class="w-full mb-6 md:w-1/2">
@@ -88,8 +88,8 @@
               </UFormGroup>
             </div>
             <div class="flex flex-col md:flex-row md:gap-3">
-              <UFormGroup label="Renda mensal" class="w-full mb-6 md:w-1/2">
-                <UInput type="text" v-model="state.monthlyIncome" />
+              <UFormGroup label="Renda mensal" class="w-full mb-6 md:w-1/2"  >
+                <UInput type="text" v-model="state.monthlyIncome" v-maska data-maska="R$ ###0,00"/>
                 <div v-if="errors.monthlyIncome" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.monthlyIncome }}</div>
               </UFormGroup>
             </div>
@@ -168,7 +168,8 @@ const state = reactive<z.output<typeof RegisterSchema>>({
   monthlyIncome: '',
   otherPetBreed: ''
 });
-
+console.log(state.CEP);
+console.log(state.monthlyIncome)
 const errors = reactive<{ [K in keyof typeof state]?: string }>({});
 
 function onSubmit() {
