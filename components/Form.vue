@@ -1,139 +1,18 @@
 <template>
   <div>
-    <UContainer class="w-full flex justify-center h-auto p-0  md:mt-24 ">
+    <UContainer class="w-full flex justify-center h-auto p-0 md:mt-24">
       <UCard class="shadow-neutral-950 w-full md:mb-12 md:w-3/4 bg-[#E5E5E5] h-screen md:h-auto">
         <h1 class="text-center text-[#4d4b4b] font-bold text-xl md:text-3xl">
           Formulário de Cadastro
         </h1>
-        <div class="m-6 flex items-center flex-wrap justify-center">
-          <div v-for="stepNumber in 3" :key="stepNumber" class="flex items-center">
-            <div
-              :class="{
-                'bg-[#46A1F6] text-white': step >= stepNumber,
-                'bg-gray-300 text-[#9A9393]': step < stepNumber
-              }"
-              class="md:h-12 w-12 flex justify-center items-center rounded-full font-bold text-[14px] leading-[16px]"
-            >
-              {{ stepNumber }}
-            </div>
-            <div v-if="stepNumber < 3" :class="{ 'bg-[#46A1F6]': step >= stepNumber, 'bg-gray-300': step < stepNumber }" class="w-12 sm:w-28 md:w-56 h-1 my-2 md:my-0"></div>
-          </div>
-        </div>
+        <FormSteps :step="step" />
         <UForm :schema="RegisterSchema" :state="state" class="space-y-4" @submit.prevent="onSubmit">
-          <div v-if="step === 1">
-            <UFormGroup class="mb-6 md:w-3/4" label="Nome completo" required>
-              <UInput
-                size="xl"
-                type="text"
-                v-model="state.fullName"
-              />
-              <div v-if="errors.fullName" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.fullName }}</div>
-            </UFormGroup>
-            <div class="flex flex-col md:flex-row md:gap-3">
-              <UFormGroup label="Data de nascimento" required class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="date" v-model="state.dateOfBirth" />
-                <div v-if="errors.dateOfBirth" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.dateOfBirth }}</div>
-              </UFormGroup>
-              <UFormGroup label="CPF" required class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="cpf" v-model="state.CPF" v-maska data-maska="###.###.###-##" />
-                <div v-if="errors.CPF" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.CPF }}</div>
-              </UFormGroup>
-            </div>
-            <div class="flex flex-col md:flex-row md:gap-3">
-              <UFormGroup label="Espécie do pet" class="w-full mb-6 md:w-1/2">
-                <UInputMenu
-                  size="xl"
-                  v-model="state.petSpecies"
-                  :options="pets"
-                  @change="updateBreeds"
-                />
-                <div v-if="errors.petSpecies" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.petSpecies }}</div>
-              </UFormGroup>
-              <UFormGroup label="Raça do pet" class="w-full md:w-1/2">
-                <UInputMenu
-                  size="xl"
-                  v-model="state.petBreed"
-                  :options="breeds"
-                  required
-                />
-                <div v-if="state.petBreed === 'Outro'" class="mt-4">
-                  <UFormGroup label="Outro" class="w-full">
-                    <UInput size="xl" type="text" v-model="state.otherPetBreed" />
-                  </UFormGroup>
-                </div>
-                <div v-if="errors.otherPetBreed" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.otherPetBreed }}</div>
-              </UFormGroup>
-            </div>
-          </div>
-
-          <div v-if="step === 2">
-            <div class="flex flex-col md:flex-row md:gap-3">
-              <UFormGroup label="CEP" class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="text" v-model="state.CEP" @change="handleCEPChange" v-maska  data-maska="#####-###" />
-                <div v-if="errors.CEP" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.CEP }}</div>
-              </UFormGroup>
-              <UFormGroup label="Estado" class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="text" v-model="state.state" />
-                <div v-if="errors.state" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.state }}</div>
-              </UFormGroup>
-            </div>
-            <div class="flex flex-col md:flex-row md:gap-3">
-              <UFormGroup label="Cidade" class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="text" v-model="state.city" />
-                <div v-if="errors.city" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.city }}</div>
-              </UFormGroup>
-              <UFormGroup label="Bairro" class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="text" v-model="state.neighborhood" />
-                <div v-if="errors.neighborhood" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.neighborhood }}</div>
-              </UFormGroup>
-              <UFormGroup label="Rua" class="w-full mb-6 md:w-1/2">
-                <UInput size="xl" type="text" v-model="state.street" />
-                <div v-if="errors.street" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.street }}</div>
-              </UFormGroup>
-            </div>
-            <div class="flex flex-col md:flex-row md:gap-3">
-              <UFormGroup label="Renda mensal" class="w-full mb-6 md:w-1/2"  >
-                <div class="relative boder rounded-md">
-                  <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#696969]">R$</span>
-                  <UInput
-                    size="xl"
-                    type="text"
-                    v-model="state.monthlyIncome"
-                    v-maska
-                    data-maska="###.###.###,##"
-                    data-maska-tokens="A:[0-9]|B:[0-9]:repeated|C:[0-9]:optional"
-                    data-maska-reversed
-                    class="pl-12"
-                  />
-                </div>
-                <div v-if="errors.monthlyIncome" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.monthlyIncome }}</div>
-              </UFormGroup>
-            </div>
-          </div>
-
-          <div v-if="step === 3">
-            <div class="text-center">
-              Cadastro realizado com sucesso!
-            </div>
-            <div class="flex justify-center">
-              <UButton to="/recipes" class="mt-4">
-                Ir para página Home
-              </UButton>
-            </div>
-          </div>
-
+          <StepOne v-if="step === 1" :state="state" :errors="errors" @updateBreeds="updateBreeds" />
+          <StepTwo v-if="step === 2" :state="state" :errors="errors" @handleCEPChange="handleCEPChange" />
+          <StepThree v-if="step === 3" />
           <div class="flex justify-end">
-            <UButton v-if="step <= 2" class="mr-4 cursor-pointer bg-[#46A1F6]" @click="previousStep">
-              Voltar
-            </UButton>
-            <UButton v-if="step < 2" class="cursor-pointer bg-[#46A1F6]" @click="nextStep">
-              Próximo
-            </UButton>
-            <UButton v-if="step === 2" class="cursor-pointer" @click="openModal">
-              Conferir dados
-            </UButton>
+            <FormButtons :step="step" @previous-step="previousStep" @next-step="nextStep" @open-modal="openModal" />
           </div>
-
         </UForm>
       </UCard>
     </UContainer>
@@ -147,31 +26,11 @@ import { reactive, ref } from 'vue';
 import { RegisterSchema } from '../schemas/RegisterSchema';
 import { isStepValid } from '../utils/isStepValid';
 import { fetchAddressFromCEP } from '../server/cepService';
-import ModalInfoUser from './ModalInfoUser.vue';
 
 const pets = ['cão', 'gato'];
 const showModal = ref(false);
 const step = ref(1);
 const breeds = ref<string[]>();
-
-const breedsDogs = [
-  'Labrador Retriever',
-  'Golden Retriever',
-  'German Shepherd',
-  'Beagle',
-  'Bulldog',
-  'Outro'
-];
-
-
-const breedsCats = [
-  'Persa',
-  'Maine Coon',
-  'Siamese',
-  'Ragdoll',
-  'British Shorthair',
-  'Outro'
-];
 
 const state = reactive<z.output<typeof RegisterSchema>>({
   fullName: '',
@@ -231,9 +90,9 @@ function previousStep() {
 
 async function updateAddressFromCEP() {
   if (state.CEP) {
-    const pasts = state.CEP.split('-');
-    const joinParts = pasts.join('');
-    const addressData = await fetchAddressFromCEP(joinParts);
+    const parts = state.CEP.split('-');
+    const joinedParts = parts.join('');
+    const addressData = await fetchAddressFromCEP(joinedParts);
     if (addressData) {
       state.state = addressData.state;
       state.city = addressData.city;
@@ -246,5 +105,4 @@ async function updateAddressFromCEP() {
 function handleCEPChange() {
   updateAddressFromCEP();
 }
-
 </script>
