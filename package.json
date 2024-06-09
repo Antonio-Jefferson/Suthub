@@ -13,9 +13,6 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,vue,scss,css,md}\""
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
-    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@nuxt/kit": "^3.11.2",
     "@nuxt/typescript-build": "^3.0.2",
     "@nuxt/ui": "^2.16.0",

@@ -1,10 +1,7 @@
-import { ref } from 'vue';
+import { defineEventHandler } from 'h3';
 import { formatDate } from '~/utils/formatDate';
-import type { UserDisplayInfo } from '~/@types/userType';
 
-const users = ref<UserDisplayInfo[]>([]);
-
-export async function fetchUsers() {
+export default defineEventHandler(async () => {
   try {
     const response = await fetch('http://dummyjson.com/users');
     if (response.ok) {
@@ -25,15 +22,12 @@ export async function fetchUsers() {
         return 0;
       });
 
-      users.value = formattedUsers;
+      return formattedUsers;
     } else {
       throw new Error('Failed to fetch users');
     }
   } catch (error) {
     console.error('Failed to fetch users:', error);
+    return null;
   }
-}
-
-export function getUsers() {
-  return users;
-}
+});
