@@ -44,7 +44,7 @@ const state = reactive<z.output<typeof RegisterSchema>>({
   neighborhood: '',
   street: '',
   monthlyIncome: '',
-  otherPetBreed: ''
+  otherPetBreed: 'outro'
 });
 
 const errors = reactive<{ [K in keyof typeof state]?: string }>({});

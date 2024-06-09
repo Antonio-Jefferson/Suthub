@@ -17,12 +17,13 @@
       </div>
     </div>
   </UCard>
-  <RecipeModal :recipe="recipe" :model-value="isOpen" @update:model-value="updateIsOpen" />
+  <UModal v-model="isOpen"  prevent-close :ui="{ width: 'w-full sm:m-w-lg' }">
+    <RecipeModal :recipe="recipe" v-model="isOpen" />
+  </UModal>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import RecipeModal from './RecipeModal.vue';
 import type { Recipe } from '../@types/recipesTypes';
 
 const props = defineProps<{
@@ -33,9 +34,5 @@ const isOpen = ref(false);
 
 const openModal = () => {
   isOpen.value = true;
-};
-
-const updateIsOpen = (value: boolean) => {
-  isOpen.value = value;
 };
 </script>

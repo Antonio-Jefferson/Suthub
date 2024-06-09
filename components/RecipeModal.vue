@@ -1,5 +1,4 @@
 <template>
-  <UModal :model-value="isOpen" @update:model-value="updateIsOpen" prevent-close :ui="{ width: 'w-full sm:m-w-lg' }">
     <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800', base: 'h-full w-full flex flex-col' }">
       <template #header>
         <div class="flex items-center justify-between">
@@ -11,12 +10,10 @@
         <RecipeDetails :recipe="recipe" />
       </template>
     </UCard>
-  </UModal>
 </template>
 
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue';
-import RecipeDetails from './RecipeDetails.vue';
 import type { Recipe } from '../@types/recipesTypes';
 
 const props = defineProps<{
