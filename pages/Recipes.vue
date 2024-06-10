@@ -39,9 +39,13 @@
 import { ref, watch, computed, onMounted } from 'vue';
 import type { Recipe } from '../@types/recipesTypes';
 
+const API_TAGS_URL = 'api/recipes/tags';
+const API_RECIPES_URL = 'api/recipes/recipes';
+const RECIPES_PER_PAGE = 4;
+
 useHead({
   title: 'SutHub - Receitas',
-})
+});
 
 const selected = ref<string[]>([]);
 const tags = ref<string[]>([]);
@@ -50,12 +54,11 @@ const filteredRecipes = ref<Recipe[]>([]);
 const currentPage = ref<number>(1);
 const isLoading = ref(true);
 
-async function fetchDataTags() {
+async function fetchDataTags(): Promise<void> {
   try {
-    const response = await fetch('api/recipes/tags');
+    const response = await fetch(API_TAGS_URL);
     if (response.ok) {
-      const responseData = await response.json();
-      tags.value = responseData;
+      tags.value = await response.json();
     } else {
       console.error('Failed to fetch tags. Status:', response.status);
     }
@@ -64,25 +67,27 @@ async function fetchDataTags() {
   }
 }
 
-async function fetchDataRecipes() {
+async function fetchDataRecipes(): Promise<void> {
   try {
-    const response = await fetch('api/recipes/recipes');
+    const response = await fetch(API_RECIPES_URL);
     if (response.ok) {
       const responseData = await response.json();
       recipes.value = responseData.recipes;
       filteredRecipes.value = recipes.value;
-      isLoading.value = false;
     } else {
       console.error('Failed to fetch recipes. Status:', response.status);
     }
   } catch (error) {
     console.error('Failed to fetch recipes:', error);
+  } finally {
+    isLoading.value = false;
   }
 }
 
-function filterRecipes() {
+function filterRecipes(): void {
   isLoading.value = true;
   currentPage.value = 1;
+
   if (selected.value.length === 0) {
     filteredRecipes.value = recipes.value;
   } else {
@@ -90,13 +95,13 @@ function filterRecipes() {
       recipe.tags.some(tag => selected.value.includes(tag))
     );
   }
+
   isLoading.value = false;
 }
 
-const paginatedRecipes = computed(() => {
-  const startIndex = (currentPage.value - 1) * 4;
-  const endIndex = startIndex + 4;
-  return filteredRecipes.value.slice(startIndex, endIndex);
+const paginatedRecipes = computed<Recipe[]>(() => {
+  const startIndex = (currentPage.value - 1) * RECIPES_PER_PAGE;
+  return filteredRecipes.value.slice(startIndex, startIndex + RECIPES_PER_PAGE);
 });
 
 onMounted(() => {
@@ -106,3 +111,4 @@ onMounted(() => {
 
 watch(selected, filterRecipes);
 </script>
+

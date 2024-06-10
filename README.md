@@ -2,7 +2,7 @@
 
 <img src="https://github.com/Antonio-Jefferson/Suthub/blob/main/assets/images/logo-suthub-white.png" alt="logo">
 
-Este é um projeto incrível que foi desenvolvido como parte de uma avaliação técnica para o cargo de Desenvolvedor Frontend PL.
+Este projeto é uma aplicação web front-end construída utilizando Vue 3 e Nuxt 3, projetada para demonstrar proficiência em práticas modernas de desenvolvimento web. A aplicação se conecta com a API pública fornecida pelo DummyJSON para buscar e exibir dados. Ela apresenta um formulário de registro de usuário com validação abrangente, uma galeria de receitas com filtragem dinâmica por tags e uma funcionalidade de busca de usuário com perfis detalhados.
 
 ## Sumário
 
@@ -10,6 +10,10 @@ Este é um projeto incrível que foi desenvolvido como parte de uma avaliação 
   - [Sumário](#sumário)
   - [Design no Figma](#design-no-figma)
   - [Deploy do Projeto](#deploy-do-projeto)
+  - [Principais Recursos](#principais-recursos)
+    - [Formulário de Registro de Usuário](#formulário-de-registro-de-usuário)
+    - [Galeria de Receitas](#galeria-de-receitas)
+    - [Busca de Usuário](#busca-de-usuário)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
   - [Quer testar o projeto na sua maquina então vem comigo](#quer-testar-o-projeto-na-sua-maquina-então-vem-comigo)
   - [1. Requisitos](#1-requisitos)
@@ -24,6 +28,38 @@ Este é um projeto incrível que foi desenvolvido como parte de uma avaliação 
 
   Deploy: [ SutHub](https://suthub-gray.vercel.app/)
 
+## Principais Recursos
+
+### Formulário de Registro de Usuário
+Um formulário que valida a entrada do usuário para os seguintes campos:
+- Data de nascimento
+- Nome completo
+- CPF
+- Espécie e raça do pet
+- Renda mensal
+- Detalhes de endereço
+
+O formulário inclui atualizações dinâmicas com base nas seleções do usuário e utiliza uma pesquisa de CEP para autocompletar o endereço.
+
+### Galeria de Receitas
+Uma página que busca e exibe receitas de uma API, permitindo que os usuários filtrem as receitas por tags. Cada receita inclui:
+- Nome
+- Imagem
+- Tags
+- Ingredientes
+- Instruções
+- Número de porções
+
+### Busca de Usuário
+Uma página que lista os usuários em ordem alfabética e inclui uma funcionalidade de busca por nome. Cada perfil de usuário exibe:
+- Foto
+- Nome completo
+- Data de nascimento
+- Gênero
+- Botão de localização para abrir a localização no Google Maps.
+
+O projeto demonstra a integração de APIs externas, componentes de interface de usuário amigáveis e validação robusta de dados.
+
 ## Tecnologias Utilizadas
 
 - **Nuxt.js**: Um framework Vue.js para construir aplicações renderizadas no servidor.
@@ -35,6 +71,7 @@ Este é um projeto incrível que foi desenvolvido como parte de uma avaliação 
 - **Maska**: Uma biblioteca de mascaramento de entrada leve e sem dependências para Vue.js.
 - **Nuxt DevTools**: Uma extensão do navegador para depurar aplicações Nuxt.js.
 - **Nuxt UI**: Componentes de interface oficial para aplicações Nuxt.js.
+- **Vite**: Uma ferramenta de construção rápida e servidor de desenvolvimento para projetos web modernos.
 
 ## Quer testar o projeto na sua maquina então vem comigo
 

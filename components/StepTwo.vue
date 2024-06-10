@@ -6,13 +6,13 @@
         <div v-if="errors.CEP" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.CEP }}</div>
       </UFormGroup>
       <UFormGroup label="Estado" class="w-full mb-6 md:w-1/2">
-        <UInput size="xl" type="text" v-model="state.state" />
+        <UInput size="xl" type="text" v-model="state.state" :readonly="isAddressFilled" />
         <div v-if="errors.state" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.state }}</div>
       </UFormGroup>
     </div>
     <div class="flex flex-col md:flex-row md:gap-3">
       <UFormGroup label="Cidade" class="w-full mb-6 md:w-1/2">
-        <UInput size="xl" type="text" v-model="state.city" />
+        <UInput size="xl" type="text" v-model="state.city" :readonly="isAddressFilled" />
         <div v-if="errors.city" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.city }}</div>
       </UFormGroup>
       <UFormGroup label="Bairro" class="w-full mb-6 md:w-1/2">
@@ -51,6 +51,13 @@ import { z } from 'zod';
 import { RegisterSchema } from '../schemas/RegisterSchema';
 import { fetchAddressFromCEP } from '../server/cepService';
 
+const isAddressFilled = ref(false);
+
+function checkAddressFilled() {
+  isAddressFilled.value = !!state.value.state && !!state.value.city;
+}
+
+
 const props = defineProps({
   state: Object as () => z.output<typeof RegisterSchema>,
   errors: Object as () => { [key: string]: string },
@@ -68,6 +75,8 @@ async function updateAddressFromCEP() {
       state.value.city = addressData.city;
       state.value.neighborhood = addressData.neighborhood;
       state.value.street = addressData.street;
+
+      checkAddressFilled();
     }
   }
 }
