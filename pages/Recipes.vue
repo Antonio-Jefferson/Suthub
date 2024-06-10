@@ -82,6 +82,7 @@ async function fetchDataRecipes() {
 
 function filterRecipes() {
   isLoading.value = true;
+  currentPage.value = 1;
   if (selected.value.length === 0) {
     filteredRecipes.value = recipes.value;
   } else {
