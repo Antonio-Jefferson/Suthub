@@ -5,6 +5,12 @@
     </NuxtLayout>
   </div>
 </template>
+
+<script setup>
+useHead({
+  title: 'SutHub',
+})
+</script>
 <style>
 .page-enter-active,
 .page-leave-active {

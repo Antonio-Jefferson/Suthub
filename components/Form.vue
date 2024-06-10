@@ -27,7 +27,6 @@ import { RegisterSchema } from '../schemas/RegisterSchema';
 import { isStepValid } from '../utils/isStepValid';
 import { fetchAddressFromCEP } from '../server/cepService';
 
-const pets = ['cão', 'gato'];
 const showModal = ref(false);
 const step = ref(1);
 const breeds = ref<string[]>();

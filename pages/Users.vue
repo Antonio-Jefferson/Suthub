@@ -32,6 +32,10 @@
 import { computed, ref, onMounted } from 'vue';
 import type { UserDisplayInfo } from '~/@types/userType';
 
+useHead({
+  title: 'SutHub - Usuários',
+})
+
 const searchQuery = ref('');
 const selectedYear = ref('');
 const selectedGender = ref('');

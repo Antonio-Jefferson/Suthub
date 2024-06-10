@@ -2,7 +2,10 @@
   <Form />
 </template>
 
-<script>
+<script setup>
+useHead({
+  title: 'SutHub - Cadastro',
+})
 definePageMeta({
   layout: 'register-layout'
 })

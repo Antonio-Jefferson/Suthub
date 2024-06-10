@@ -27,7 +27,7 @@
     <div class="flex flex-col md:flex-row md:gap-3">
       <UFormGroup label="Renda mensal" class="w-full mb-6 md:w-1/2">
         <div class="relative border rounded-md">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#ffff]">R$</span>
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#474747]">R$</span>
           <UInput
             size="xl"
             type="text"

@@ -27,15 +27,14 @@
           <UInput size="xl" type="text" v-model="state.otherPetBreed" />
         <div v-if="errors.otherPetBreed" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.otherPetBreed }}</div>
       </UFormGroup>
-  </div>
-</UFormGroup>
-
+    </div>
+  </UFormGroup>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue';
+import { toRefs } from 'vue';
 import { z } from 'zod';
 import { RegisterSchema } from '../schemas/RegisterSchema';
 

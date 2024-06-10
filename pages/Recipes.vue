@@ -9,6 +9,11 @@
     </UHeader>
     <UContainer>
       <div class="flex flex-wrap gap-4 mt-12 mb-4 md:mt-28">
+        <div v-if="isLoading" class="w-full flex flex-wrap gap-4">
+          <div v-for="n in 4" :key="n" class="w-full md:w-[calc(50%-0.5rem)]">
+            <RecipeSkeleton />
+          </div>
+        </div>
         <div v-if="paginatedRecipes.length === 0" class="w-full text-center">
           <p class="text-xl text-gray-600 dark:text-gray-400">Nenhuma receita encontrada.</p>
         </div>
@@ -34,11 +39,16 @@
 import { ref, watch, computed, onMounted } from 'vue';
 import type { Recipe } from '../@types/recipesTypes';
 
+useHead({
+  title: 'SutHub - Receitas',
+})
+
 const selected = ref<string[]>([]);
 const tags = ref<string[]>([]);
 const recipes = ref<Recipe[]>([]);
 const filteredRecipes = ref<Recipe[]>([]);
 const currentPage = ref<number>(1);
+const isLoading = ref(true);
 
 async function fetchDataTags() {
   try {
@@ -61,6 +71,7 @@ async function fetchDataRecipes() {
       const responseData = await response.json();
       recipes.value = responseData.recipes;
       filteredRecipes.value = recipes.value;
+      isLoading.value = false;
     } else {
       console.error('Failed to fetch recipes. Status:', response.status);
     }
@@ -70,6 +81,7 @@ async function fetchDataRecipes() {
 }
 
 function filterRecipes() {
+  isLoading.value = true;
   if (selected.value.length === 0) {
     filteredRecipes.value = recipes.value;
   } else {
@@ -77,6 +89,7 @@ function filterRecipes() {
       recipe.tags.some(tag => selected.value.includes(tag))
     );
   }
+  isLoading.value = false;
 }
 
 const paginatedRecipes = computed(() => {
