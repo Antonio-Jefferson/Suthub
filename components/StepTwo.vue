@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue';
+import { toRefs, ref } from 'vue';
 import { z } from 'zod';
 import { RegisterSchema } from '../schemas/RegisterSchema';
 import { fetchAddressFromCEP } from '../server/cepService';
@@ -59,8 +59,27 @@ function checkAddressFilled() {
 
 
 const props = defineProps({
-  state: Object as () => z.output<typeof RegisterSchema>,
-  errors: Object as () => { [key: string]: string },
+  state: {
+    type: Object as () => z.output<typeof RegisterSchema>,
+    default: () => ({
+      fullName: '',
+      dateOfBirth: '',
+      CPF: '',
+      petSpecies: '',
+      petBreed: '',
+      CEP: '',
+      state: '',
+      city: '',
+      neighborhood: '',
+      street: '',
+      monthlyIncome: '',
+      otherPetBreed: ''
+    }),
+  },
+  errors: {
+    type: Object as () => { [key: string]: string },
+    default: () => ({}),
+  },
 });
 
 const { state, errors } = toRefs(props);

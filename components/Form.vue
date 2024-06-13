@@ -31,6 +31,24 @@ const showModal = ref(false);
 const step = ref(1);
 const breeds = ref<string[]>();
 
+const breedsDogs = [
+  'Labrador Retriever',
+  'Golden Retriever',
+  'German Shepherd',
+  'Beagle',
+  'Bulldog',
+  'Outro'
+];
+
+const breedsCats = [
+  'Persa',
+  'Maine Coon',
+  'Siamese',
+  'Ragdoll',
+  'British Shorthair',
+  'Outro'
+];
+
 const state = reactive<z.output<typeof RegisterSchema>>({
   fullName: '',
   dateOfBirth: '',

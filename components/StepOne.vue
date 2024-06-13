@@ -19,34 +19,54 @@
         <UInputMenu size="xl" v-model="state.petSpecies" :options="pets" @change="updateBreeds" />
         <div v-if="errors.petSpecies" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.petSpecies }}</div>
       </UFormGroup>
-        <UFormGroup label="Raça do pet" class="w-full md:w-1/2">
+      <UFormGroup label="Raça do pet" class="w-full md:w-1/2">
         <UInputMenu size="xl" v-model="state.petBreed" :options="breeds" required />
         <div v-if="errors.petBreed" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.petBreed }}</div>
         <div v-if="state.petBreed === 'Outro'" class="mt-4">
           <UFormGroup label="Outro" class="w-full">
-          <UInput size="xl" type="text" v-model="state.otherPetBreed" />
-        <div v-if="errors.otherPetBreed" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.otherPetBreed }}</div>
+            <UInput size="xl" type="text" v-model="state.otherPetBreed" />
+            <div v-if="errors.otherPetBreed" class="text-red-500 text-xs mt-2 md:text-sm">{{ errors.otherPetBreed }}</div>
+          </UFormGroup>
+        </div>
       </UFormGroup>
-    </div>
-  </UFormGroup>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { toRefs } from 'vue';
+import { toRefs, computed } from 'vue';
 import { z } from 'zod';
 import { RegisterSchema } from '../schemas/RegisterSchema';
 
 const props = defineProps({
-  state: Object as () => z.output<typeof RegisterSchema>,
-  errors: Object as () => { [key: string]: string },
+  state: {
+    type: Object as () => z.output<typeof RegisterSchema>,
+    default: () => ({
+      fullName: '',
+      dateOfBirth: '',
+      CPF: '',
+      petSpecies: '',
+      petBreed: '',
+      CEP: '',
+      state: '',
+      city: '',
+      neighborhood: '',
+      street: '',
+      monthlyIncome: '',
+      otherPetBreed: ''
+    }),
+  },
+  errors: {
+    type: Object as () => { [key: string]: string },
+    default: () => ({}),
+  },
   updateBreeds: Function,
 });
 
 const { state, errors, updateBreeds } = toRefs(props);
 
 const pets = ['cão', 'gato'];
+
 const breedsDogs = [
   'Labrador Retriever',
   'Golden Retriever',

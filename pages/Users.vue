@@ -1,11 +1,11 @@
 <template>
-  <div class="sm:px-3 md:px-6 lg:px-8 xl:px-10">
+  <div class="px-3 sm:px-6 md:px-8 lg:px-10">
     <UContainer>
-      <div class="flex items-center gap-24 px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
-        <UInput size="xl" v-model="searchQuery" placeholder="Buscar usuário..." />
-        <USelect v-model="selectedYear" :options="years" placeholder="Filtrar por ano de nascimento..." />
-        <USelect size="sm" v-model="selectedGender" :options="genderOptions" placeholder="Filtrar por gênero..." />
-        <UButton sizew="sm" @click="clearFilters">Limpar Filtros</UButton>
+      <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 px-3 py-3.5 border-b border-gray-200 dark:border-gray-700">
+        <UInput size="xl" v-model="searchQuery" placeholder="Buscar usuário..." class="w-full md:w-auto" />
+        <USelect v-model="selectedYear" :options="years" placeholder="Filtrar por ano de nascimento..." class="w-full md:w-auto" />
+        <USelect size="sm" v-model="selectedGender" :options="genderOptions" placeholder="Filtrar por gênero..." class="w-full md:w-auto" />
+        <UButton size="sm" @click="clearFilters" class="w-full md:w-auto">Limpar Filtros</UButton>
       </div>
 
       <UTable
@@ -40,6 +40,7 @@ const searchQuery = ref('');
 const selectedYear = ref('');
 const selectedGender = ref('');
 const years = Array.from({ length: new Date().getFullYear() - 1899 }, (_, i) => 1900 + i);
+
 const columns = [
   { key: 'photo', label: 'Imagem' },
   { key: 'name', label: 'Nome completo' },
@@ -108,3 +109,11 @@ const emptyStateMessage = computed(() => {
 
 onMounted(fetchUsers);
 </script>
+
+<style scoped>
+@media (min-width: 768px) {
+  .gap-24 {
+    gap: 24px;
+  }
+}
+</style>
